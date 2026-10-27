@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+
+  <title>Tres en Raya online by Belgra_77_Soft</title>
+  <meta name="description" content="Tres en Raya online competitivo al mejor de 3, salas privadas por código de 6 dígitos, chat con emojis y banda sonora lo-fi generada en vivo." />
+
+  <!-- ===================== PWA / Mobile meta ===================== -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#020617" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="TRR Belgra77" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+
+  <!-- ===================== Estilos ===================== -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+</head>
+
+<body class="text-slate-100 antialiased overflow-hidden">
+
+  <!-- Fondos decorativos -->
+  <div class="aurora aurora-a"></div>
+  <div class="aurora aurora-b"></div>
+  <div class="aurora aurora-c"></div>
+
+  <!-- ============ NAVBAR SUPERIOR ============ -->
+  <header class="fixed top-0 inset-x-0 z-40 glass border-b border-white/5" style="top: var(--safe-top)">
+    <div class="flex items-center justify-between px-4 h-14">
+          <div class="flex items-center gap-2 no-select">
+            <a href="../index.html" class="glass-soft rounded-full px-3 py-2 text-sm pressed" title="Volver al portal">🏠 Portal</a>
+            <span class="text-xl">⚔️</span>
+        <h1 class="font-bold text-sm sm:text-base tracking-tight">
+          Tres en Raya <span class="text-sky-400">online</span>
+          <span class="hidden sm:inline text-slate-400 font-light">by Belgra_77_Soft</span>
+        </h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btn-emoji" class="glass-soft rounded-full px-3 py-2 text-lg leading-none pressed" title="Reaccionar con emojis" aria-label="Reacciones emoji">😍</button>
+        <button id="btn-chat" class="glass-soft rounded-full px-3 py-2 text-lg leading-none pressed" title="Chat rápido" aria-label="Chat rápido">💬</button>
+        <button id="btn-music" class="glass-soft rounded-full px-3 py-2 text-lg leading-none pressed" title="Música ON/OFF" aria-label="Música ON/OFF">🎵</button>
+        <button id="btn-sfx" class="glass-soft rounded-full px-3 py-2 text-lg leading-none pressed" title="Efectos ON/OFF" aria-label="Efectos ON/OFF">🔊</button>
+      </div>
+    </div>
+    <!-- Barra rápida de emojis visibles al pulsar 😍 -->
+    <div id="emoji-bar" class="hidden absolute top-full inset-x-0 glass border-b border-white/10 px-3 py-2 flex gap-2 overflow-x-auto no-scrollbar">
+      <button class="emoji-btn text-2xl" data-emoji="😍"></button>
+      <button class="emoji-btn text-2xl" data-emoji="😂"></button>
+      <button class="emoji-btn text-2xl" data-emoji="🔥"></button>
+      <button class="emoji-btn text-2xl" data-emoji="🤯"></button>
+      <button class="emoji-btn text-2xl" data-emoji="😱"></button>
+      <button class="emoji-btn text-2xl" data-emoji="🎉"></button>
+      <button class="emoji-btn text-2xl" data-emoji="👍"></button>
+      <button class="emoji-btn text-2xl" data-emoji="😈"></button>
+      <button class="emoji-btn text-2xl" data-emoji="🐢"></button>
+      <button class="emoji-btn text-2xl" data-emoji="🧠"></button>
+    </div>
+  </header>
+
+  <main class="h-[100dvh] relative z-10">
+
+    <!-- ============ PANTALLA: LOBBY ============ -->
+    <section id="screen-lobby" class="screen active flex-col items-center justify-center px-4 pt-16 pb-6 overflow-y-auto h-full">
+      <div class="w-full max-w-3xl">
+        <div class="text-center mb-8 mt-2 no-select">
+          <div class="text-6xl mb-3 animate-bounce">🟢🔵</div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Tres en Raya <span class="text-sky-400">online</span></h2>
+          <p class="text-slate-400 mt-1">by Belgra_77_Soft · Al mejor de 3 partidas</p>
+        </div>
+
+        <div class="grid gap-5 md:grid-cols-3">
+          <!-- Partida rápida -->
+          <div class="glass rounded-3xl p-6 flex flex-col items-center text-center gap-4">
+            <div class="text-4xl">⚡</div>
+            <h3 class="font-bold text-lg">Partida Rápida</h3>
+            <p class="text-slate-400 text-sm grow">Compite al instante contra una IA rival con tres niveles de dificultad.</p>
+            <div class="grid grid-cols-3 gap-2 w-full text-xs">
+              <button data-diff="easy"   class="diff-btn glass-soft rounded-xl py-2 pressed">🟢 Fácil</button>
+              <button data-diff="normal" class="diff-btn glass-soft rounded-xl py-2 pressed">🔶 Normal</button>
+              <button data-diff="hard"   class="diff-btn glass-soft rounded-xl py-2 pressed">🔴 Difícil</button>
+            </div>
+            <button id="btn-quick" class="w-full rounded-2xl bg-gradient-to-r from-sky-500 to-cyan-400 py-3 font-bold text-slate-950 pressed tap-safe">
+              Jugar ya ⚡
+            </button>
+          </div>
+
+          <!-- Crear sala -->
+          <div class="glass rounded-3xl p-6 flex flex-col items-center text-center gap-4">
+            <div class="text-4xl">🔐</div>
+            <h3 class="font-bold text-lg">Crear Sala Privada</h3>
+            <p class="text-slate-400 text-sm grow">Genera un código de 6 dígitos y compártelo con tu rival. El juego empieza solo cuando se conecten 2 jugadores.</p>
+            <button id="btn-create" class="w-full rounded-2xl bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 font-bold text-white pressed tap-safe">
+              Crear sala 🔐
+            </button>
+          </div>
+
+          <!-- Unirse -->
+          <div class="glass rounded-3xl p-6 flex flex-col items-center text-center gap-4">
+            <div class="text-4xl">🚪</div>
+            <h3 class="font-bold text-lg">Unirse a Sala</h3>
+            <p class="text-slate-400 text-sm grow">Introduce el código de 6 dígitos que te compartió tu rival.</p>
+            <input id="input-code" type="number" inputmode="numeric" maxlength="6" placeholder="000000"
+              class="copy-code w-full text-center rounded-2xl bg-slate-900/70 border border-white/10 py-3 text-2xl tracking-[0.3em] outline-none focus:border-sky-400" />
+            <button id="btn-join" class="w-full rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 py-3 font-bold text-slate-950 pressed tap-safe">
+              Unirse 🚪
+            </button>
+          </div>
+        </div>
+
+        <p class="text-center text-slate-500 text-xs mt-6">© Belgra_77_Soft · PWA v1.0 🎮</p>
+      </div>
+    </section>
+
+    <!-- ============ PANTALLA: SALA DE ESPERA ============ -->
+    <section id="screen-waiting" class="screen flex-col items-center justify-center px-4 h-full">
+      <div class="glass rounded-3xl p-8 w-full max-w-sm flex flex-col items-center gap-5 text-center">
+        <div id="spinner" class="spinner"></div>
+        <h2 class="text-2xl font-bold">Esperando rival<span class="dot-typing"></span></h2>
+        <p class="text-slate-400 text-sm">Comparte este código con tu oponente.</p>
+        <button id="btn-copy-code" class="copy-code glass-soft rounded-2xl px-6 py-4 text-3xl font-extrabold text-sky-300 pressed" title="Copiar código">
+          <span id="wait-code">------</span>
+        </button>
+        <p id="wait-hint" class="text-slate-500 text-xs">Toca el código para copiar 📋</p>
+        <div id="wait-status" class="text-sm text-slate-400">0 / 2 jugadores conectados</div>
+        <button id="btn-leave" class="mt-2 rounded-xl border border-rose-400/30 text-rose-300 px-4 py-2 text-sm pressed">← Volver al lobby</button>
+      </div>
+    </section>
+
+    <!-- ============ PANTALLA: JUEGO (solo con 2/2 conectados) ============ -->
+    <section id="screen-game" class="screen flex-col h-full">
+
+      <!-- Marcadores + avatares con burbujas de chat -->
+      <div class="grid grid-cols-2 gap-3 px-4" style="margin-top: calc(3.5rem + var(--safe-top))">
+        <div id="player-me-wrap" class="relative flex items-center gap-3 glass-soft rounded-2xl p-3">
+          <div class="text-3xl no-select">🟢</div>
+          <div class="min-w-0">
+            <p class="font-bold text-sm truncate" id="me-name">Tú</p>
+            <p class="text-slate-400 text-xs">Victorias: <b id="score-me" class="text-emerald-400">0</b></p>
+          </div>
+        </div>
+        <div id="player-op-wrap" class="relative flex items-center gap-3 justify-end glass-soft rounded-2xl p-3">
+          <div class="text-right min-w-0">
+            <p class="font-bold text-sm truncate" id="op-name">Rival</p>
+            <p class="text-slate-400 text-xs">Victorias: <b id="score-op" class="text-rose-400">0</b></p>
+          </div>
+          <div class="text-3xl no-select">🔵</div>
+        </div>
+      </div>
+
+      <!-- Estado de ronda -->
+      <div class="text-center mt-3">
+        <p id="round-label" class="text-xs text-slate-400 uppercase tracking-widest">Partida 1 · Mejor de 3</p>
+        <p id="turn-label" class="font-bold text-sky-300 mt-1">—</p>
+      </div>
+
+      <!-- Tablero (origen de emojis flotantes) -->
+      <div class="emoji-origin flex grow items-center justify-center relative" id="board-area">
+        <div id="board"></div>
+      </div>
+
+      <!-- Barra de progreso de serie -->
+      <div class="flex justify-center gap-2 pb-2">
+        <span class="w-8 h-2 rounded-full bg-slate-700" data-round-dot></span>
+        <span class="w-8 h-2 rounded-full bg-slate-700" data-round-dot></span>
+        <span class="w-8 h-2 rounded-full bg-slate-700" data-round-dot></span>
+      </div>
+
+      <!-- Envío rápido de chat -->
+      <div class="px-4 pb-4 flex gap-2 items-center" style="padding-bottom: max(1rem, var(--safe-bottom))">
+        <input id="chat-input" type="text" maxlength="40" placeholder="Mensaje corto…"
+          class="glass-soft rounded-full px-4 py-2 grow text-sm outline-none focus:border-sky-400" />
+        <button id="chat-send" class="rounded-full bg-sky-500 text-slate-950 px-5 py-2 font-bold text-sm pressed tap-safe">Enviar</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ MODAL: CAMPEÓN DE LA SERIE ============ -->
+  <div id="modal-champion" class="hidden fixed inset-0 z-50 grid place-items-center bg-slate-950/70 backdrop-blur-sm px-4">
+    <div class="champion-modal glass rounded-3xl p-8 max-w-sm w-full text-center flex flex-col items-center gap-4">
+      <span class="champion-crown text-6xl">👑</span>
+      <h2 class="text-2xl font-extrabold">¡Gran Final!</h2>
+      <p id="champion-text" class="text-lg font-bold text-amber-300">—</p>
+      <p class="text-slate-400 text-sm">Serie al mejor de 3 finalizada</p>
+      <div class="flex gap-3 w-full mt-2">
+        <button id="btn-reset-score" class="grow rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 py-3 font-bold text-slate-950 pressed">Reiniciar marcador 🔄</button>
+        <button id="btn-lobby" class="grow rounded-2xl border border-white/15 py-3 font-bold text-slate-200 pressed">Lobby 🏠</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ OVERLAY: RECONEXIÓN ============ -->
+  <div id="overlay-reconnect" class="hidden fixed inset-0 z-[55] grid place-items-center bg-slate-950/70 backdrop-blur-sm px-4">
+    <div class="glass rounded-3xl p-8 max-w-sm w-full text-center flex flex-col items-center gap-4">
+      <div class="spinner"></div>
+      <h2 class="text-xl font-bold">Rival desconectado 😢</h2>
+      <p id="reconnect-text" class="text-slate-400 text-sm">Buscando reconexión automática…</p>
+      <p id="reconnect-count" class="text-3xl font-extrabold text-sky-300 tabular-nums">30</p>
+      <div class="flex gap-3 w-full mt-2">
+        <button id="btn-wait-reconn" class="grow rounded-2xl bg-gradient-to-r from-sky-500 to-cyan-400 py-3 font-bold text-slate-950 pressed">Seguir esperando ⏳</button>
+        <button id="btn-exit-reconn" class="grow rounded-2xl border border-rose-400/40 text-rose-300 py-3 font-bold pressed">Lobby 🏠</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast global -->
+  <div id="toast" class="hidden fixed left-1/2 -translate-x-1/2 bottom-24 z-[60] glass rounded-full px-5 py-2.5 text-sm font-medium"></div>
+
+  <!-- ============ Lógica modular ============ -->
+  <script type="module" src="js/audio.js"></script>
+  <script type="module" src="js/app.js"></script>
+  <script>
+    // Registro del Service Worker (PWA instalable / offline)
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+    }
+    // Desbloqueo del AudioContext en el primer gesto del usuario
+    const unlock = () => { window.AudioEngine.unlock(); window.removeEventListener("pointerdown", unlock); };
+    window.addEventListener("pointerdown", unlock, { once: false });
+  </script>
+  <audio id="bgm" autoplay src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" loop preload="auto"></audio>
+  <script>
+    const bgm=document.getElementById('bgm');
+    const btn=document.getElementById('btn-music');
+    if(btn){btn.addEventListener('click',()=>{if(bgm.paused){bgm.play();btn.textContent='🎵 ON';}else{bgm.pause();btn.textContent='🎵';}});}
+  </script>
+</body>
+</html>
