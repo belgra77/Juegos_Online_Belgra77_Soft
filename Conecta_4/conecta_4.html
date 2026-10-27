@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conecta 4 online by Belgra_77_Soft</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#020617" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+</head>
+<body class="text-slate-100 antialiased overflow-hidden">
+  <header class="fixed top-0 inset-x-0 z-40 glass border-b border-white/5" style="top: env(safe-area-inset-top)">
+    <div class="flex items-center justify-between px-4 h-14">
+          <div class="flex items-center gap-2 no-select">
+            <a href="../index.html" class="glass-soft rounded-full px-3 py-2 text-sm pressed" title="Volver al portal">🏠 Portal</a>
+            <span class="text-xl">🟡🔴</span>
+        <h1 class="font-bold text-sm sm:text-base tracking-tight">Conecta 4 <span class="text-yellow-400">online</span></h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btn-emoji" class="glass-soft rounded-full px-3 py-2 text-lg leading-none pressed" title="Reaccionar con emojis">😍</button>
+        <button id="btn-chat" class="glass-soft rounded-full px-3 py-2 text-lg leading-none pressed" title="Chat rápido">💬</button>
+        <button id="btn-music" class="glass-soft rounded-full px-3 py-2 text-lg leading-none pressed" title="Música ON/OFF">🎵</button>
+        <button id="btn-sfx" class="glass-soft rounded-full px-3 py-2 text-lg leading-none pressed" title="Efectos ON/OFF">🔊</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="h-[100dvh] relative z-10">
+    <section id="screen-lobby" class="screen active flex-col items-center justify-center px-4 pt-16 pb-6 overflow-y-auto h-full">
+      <div class="w-full max-w-3xl">
+        <div class="text-center mb-8 mt-2 no-select">
+          <div class="text-6xl mb-3 animate-bounce">🟡🔴</div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Conecta 4 <span class="text-yellow-400">online</span></h2>
+          <p class="text-slate-400 mt-1">by Belgra_77_Soft · Primera a 3 victorias</p>
+        </div>
+        <div class="grid gap-5 md:grid-cols-3">
+          <div class="glass rounded-3xl p-6 flex flex-col items-center text-center gap-4">
+            <div class="text-4xl">⚡</div>
+            <h3 class="font-bold text-lg">Partida Rápida</h3>
+            <p class="text-slate-400 text-sm grow">Compite al instante contra una IA rival.</p>
+            <button id="btn-quick" class="w-full rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-400 py-3 font-bold text-slate-950 pressed tap-safe">Jugar ya ⚡</button>
+          </div>
+          <div class="glass rounded-3xl p-6 flex flex-col items-center text-center gap-4">
+            <div class="text-4xl">🔐</div>
+            <h3 class="font-bold text-lg">Crear Sala Privada</h3>
+            <p class="text-slate-400 text-sm grow">Genera un código de 6 dígitos y compártelo con tu rival.</p>
+            <button id="btn-create" class="w-full rounded-2xl bg-gradient-to-r from-red-500 to-rose-500 py-3 font-bold text-white pressed tap-safe">Crear sala 🔐</button>
+          </div>
+          <div class="glass rounded-3xl p-6 flex flex-col items-center text-center gap-4">
+            <div class="text-4xl">🚪</div>
+            <h3 class="font-bold text-lg">Unirse a Sala</h3>
+            <p class="text-slate-400 text-sm grow">Introduce el código de 6 dígitos que te compartió tu rival.</p>
+            <input id="input-code" type="number" inputmode="numeric" maxlength="6" placeholder="000000" class="copy-code w-full text-center rounded-2xl bg-slate-900/70 border border-white/10 py-3 text-2xl tracking-[0.3em] outline-none focus:border-yellow-400" />
+            <button id="btn-join" class="w-full rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 py-3 font-bold text-slate-950 pressed tap-safe">Unirse 🚪</button>
+          </div>
+        </div>
+        <p class="text-center text-slate-500 text-xs mt-6">© Belgra_77_Soft · PWA v0.0.1 🎮</p>
+      </div>
+    </section>
+    <section id="screen-game" class="screen hidden flex-col h-full">
+      <div class="grid grid-cols-2 gap-3 px-4" style="margin-top: calc(3.5rem + var(--safe-top))">
+        <div id="player-me-wrap" class="relative flex items-center gap-3 glass-soft rounded-2xl p-3">
+          <span class="text-3xl no-select">🟡</span>
+          <div class="min-w-0">
+            <p class="font-bold text-sm truncate" id="me-name">Tú</p>
+            <p class="text-slate-400 text-xs">Victorias: <b id="score-me" class="text-emerald-400">0</b></p>
+          </div>
+        </div>
+        <div id="player-op-wrap" class="relative flex items-center gap-3 justify-end glass-soft rounded-2xl p-3">
+          <div class="text-right min-w-0">
+            <p class="font-bold text-sm truncate" id="op-name">Rival</p>
+            <p class="text-slate-400 text-xs">Victorias: <b id="score-op" class="text-rose-400">0</b></p>
+          </div>
+          <span class="text-3xl no-select">🔴</span>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <p id="round-label" class="text-xs text-slate-400 uppercase tracking-widest">Primera a 3 victorias</p>
+        <p id="turn-label" class="font-bold text-yellow-300 mt-1">—</p>
+      </div>
+      <div id="board-area" class="grow flex items-center justify-center relative overflow-hidden"></div>
+      <div class="flex justify-center gap-2 pb-2">
+        <span class="w-8 h-2 rounded-full bg-slate-700" data-round-dot></span>
+        <span class="w-8 h-2 rounded-full bg-slate-700" data-round-dot></span>
+        <span class="w-8 h-2 rounded-full bg-slate-700" data-round-dot></span>
+      </div>
+      <div class="px-4 pb-4 flex gap-2 items-center" style="padding-bottom: max(1rem, var(--safe-bottom))">
+        <input id="chat-input" type="text" maxlength="40" placeholder="Mensaje corto…" class="glass-soft rounded-full px-4 py-2 grow text-sm outline-none focus:border-yellow-400" />
+        <button id="chat-send" class="rounded-full bg-yellow-400 text-slate-950 px-5 py-2 font-bold text-sm pressed tap-safe">Enviar</button>
+      </div>
+    </section>
+  </main>
+  <div id="toast" class="hidden fixed left-1/2 -translate-x-1/2 bottom-24 z-[60] glass rounded-full px-5 py-2.5 text-sm font-medium"></div>
+  <script type="module" src="js/audio.js"></script>
+  <script type="module" src="js/app.js"></script>
+  <script>if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}</script>
+  <audio id="bgm" autoplay src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" loop preload="auto"></audio>
+  <script>
+    const bgm=document.getElementById('bgm');
+    const btn=document.getElementById('btn-music');
+    if(btn){btn.addEventListener('click',()=>{if(bgm.paused){bgm.play();btn.textContent='🎵 ON';}else{bgm.pause();btn.textContent='🎵';}});}
+  </script>
+</body>
+</html>
